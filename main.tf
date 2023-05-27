@@ -25,6 +25,7 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_eip" "ngwelb" {
+ # count = length(var.subnets["public"].cidr_block)
   count = length(lookup(lookup(var.subnets, "public", null), "cidr_block", 0))
   domain   = "vpc"
   #vpc      = true
@@ -32,7 +33,8 @@ resource "aws_eip" "ngwelb" {
 }
 
 # resource "aws_nat_gateway" "natgateway" {
-#   allocation_id = aws_eip.example.id
+#   count = length(var.subnets["public"].cidr_block)
+#   allocation_id = aws_eip.ngwelb[count.index].id
 #   subnet_id     = aws_subnet.example.id
 
 #   tags = {
@@ -43,3 +45,7 @@ resource "aws_eip" "ngwelb" {
 #   # on the Internet Gateway for the VPC.
 #   depends_on = [aws_internet_gateway.example]
 # }
+
+output "subnet_ids" {
+  value = module.subnets
+} 
