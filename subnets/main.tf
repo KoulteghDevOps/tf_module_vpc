@@ -13,3 +13,4 @@ resource "aws_route_table" "main" {
 
   tags = merge(var.tags, {Name = "${var.env}-${var.name}-routetable-${count.index + 1}"})
 }
+
