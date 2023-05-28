@@ -40,6 +40,12 @@ resource "aws_nat_gateway" "natgateway" {
   tags = merge(var.tags, {Name = "${var.env}-natgateway"})
 }
 
+resource "aws_route" "igw" {
+  count   = length(module.subnets["public"].route_table_ids)
+  route_table_id = module.subnets["public"].route_table_ids[count.index]
+  gateway_id = aws_internet_gateway.igw.id
+}
+
 # output "subnet_ids" {
 #   value = module.subnets
 # } 
