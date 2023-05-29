@@ -20,3 +20,5 @@ resource "aws_route_table_association" "associatn" {
   route_table_id = aws_route_table.main[count.index].id
 }
 
+
+
