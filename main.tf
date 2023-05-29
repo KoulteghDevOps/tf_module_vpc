@@ -58,10 +58,6 @@ output "natgateway" {
   value = aws_nat_gateway.natgateway
 }
 
-output "subnets" {
-  value = module.subnets
-} 
-
 # output "subnet_ids" {
 #   value = module.subnets
 # } 
